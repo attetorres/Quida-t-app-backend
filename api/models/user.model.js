@@ -27,7 +27,7 @@ const UserModel = sequelize.define('user', {
     colegiate: {
         type: DataTypes.STRING,
     },
-    validate: {
+    validation: {
         type: DataTypes.BOOLEAN,
     },
     role: {

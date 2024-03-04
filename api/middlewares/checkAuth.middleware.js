@@ -2,7 +2,6 @@ const UserModel = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 
 const checkAuth = (req,res,next) => {
-    console.log(req.headers.authorization)
     if (!req.headers.authorization) return res.status(401).send('Unauthorized 1')
 
     try {
@@ -24,6 +23,24 @@ const checkAuth = (req,res,next) => {
     }
 }
 
+const checkAdmin = (req,res,next) => {
+    if (res.locals.user.role !== 'admin') {
+        return res.status(401).send('User not authorrized')        
+    } else {
+        next()
+    }
+}
+
+const checkPsycho = (req,res,next) => {
+    if (res.locals.user.role !== 'psychologist' || res.locals.user.role !== 'admin') {
+        return res.status(401).send('User not authorrized')        
+    } else {
+        next()
+    }
+}
+
 module.exports = {
-    checkAuth
+    checkAuth,
+    checkAdmin,
+    checkPsycho
 }
