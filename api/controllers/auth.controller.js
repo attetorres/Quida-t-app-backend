@@ -3,7 +3,7 @@ const UserModel = require('../models/user.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const singUp = async(req,res) => {
+const signUp = async(req,res) => {
     try {
         const salt = bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT))
         req.body.pass = bcrypt.hashSync(req.body.pass, salt)
@@ -32,7 +32,7 @@ const login = async(req,res) => {
 
         const token = jwt.sign({email: user.email, role: user.role}, process.env.JWT_SECRET)
         res.status(200).json({token})
-        
+
     } catch (error) {
         console.log(error)
         res.status(500).send('Error login')
@@ -40,6 +40,6 @@ const login = async(req,res) => {
 }
 
 module.exports = {
-    singUp,
+    signUp,
     login
 }

@@ -21,7 +21,7 @@ api.use(morgan('dev'))
 api.use(express.json())
 
 
-//api.use('/api', require ('/api/routes))
+api.use('/api', require ('./api/routes'))
 
 
 api.listen(process.env.PORT, async (err) => {
