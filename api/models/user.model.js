@@ -8,11 +8,11 @@ const UserModel = sequelize.define('user', {
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false
+        
     },
     lastname: {
         type: DataTypes.STRING,
-        allowNull: false
+    
     },
     pass: {
         type: DataTypes.STRING,
@@ -46,12 +46,6 @@ const UserModel = sequelize.define('user', {
     },
     psychologist: {
         type: DataTypes.INTEGER,
-    },
-    created_at: {
-        type: DataTypes.DATE,
-    },
-    updated_at: {
-        type: DataTypes.DATE
     }
 
 })
