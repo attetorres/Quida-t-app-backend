@@ -1,12 +1,13 @@
-![image](https://github.com/attetorres/cuida-t-app/assets/110516703/839c21b6-2ed6-4143-bd1a-fbd8a872cf93)
+![image](https://github.com/attetorres/cuida-t-app/assets/110516703/9ad0064b-a662-4325-bd5c-97ec19feaaf0)
 
 
 
 
 
-**Table users {
+
+Table users {
   id integer [primary key]
-  userName varchar
+  userName varcahr
   name varchar 
   lastname varchar 
   pass varchar 
@@ -16,7 +17,7 @@
   avatar image 
   role varchar 
   phone integer 
-  psicologo integer
+  psychologist integer
   created_at timestamp 
   updated_at timestamp }
 
@@ -70,5 +71,5 @@ Ref: lists.id < asssignedUsers.list_id
 Ref: asssignedUsers.id  < registryTasks.asssignedUsers_id
 
 ref: registryTasks.task_id > tasks.id
-ref: users.psicologo > users.id
-**
+ref: users.psychologist > users.id
+
