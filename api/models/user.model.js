@@ -22,7 +22,7 @@ const UserModel = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        //isEmail: true
+        isEmail: true
     },
     colegiate: {
         type: DataTypes.STRING,
