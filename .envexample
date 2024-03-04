@@ -1,0 +1,12 @@
+PORT = 
+
+DB_NAME = 
+DB_HOST = 
+DB_PORT = 
+DB_USER = 
+DB_PASS = 
+DB_DIALECT = 
+
+BCRYPT_SALT =
+
+JWT_SECRET = 
