@@ -1,10 +1,12 @@
-![image](https://github.com/attetorres/cuida-t-app/assets/110516703/2dc45b1d-e296-489b-ba80-a8c170131aea)
+![image](https://github.com/attetorres/cuida-t-app/assets/110516703/839c21b6-2ed6-4143-bd1a-fbd8a872cf93)
+
 
 
 
 
 **Table users {
   id integer [primary key]
+  userName varchar
   name varchar 
   lastname varchar 
   pass varchar 
