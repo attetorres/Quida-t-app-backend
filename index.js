@@ -20,7 +20,7 @@ const dbCheck = async () => {
 api.use(morgan('dev'))
 api.use(express.json())
 
-//api.get('/',(req, res) => res.send('Connected to api.'))
+
 //api.use('/api', require ('/api/routes))
 
 
