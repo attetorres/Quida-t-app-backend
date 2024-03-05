@@ -11,9 +11,11 @@ const {
 router.get('/', getAllTasks)
 router.get('/:taskId', getOneTask)
 
-router.post('/', createTask)
+router.post('/:listId/tasks', createTask)
 
 router.put('/:taskId', updateTask)
+
+router.delete('/:taskId', deleteTask)
 
 //router.delete('/:taskId', deleteTask)
 
