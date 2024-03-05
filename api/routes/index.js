@@ -7,7 +7,7 @@ const ListRouter = require ('./list.routes')
 const { checkAuth, checkAdmin, checkPsycho } = require('../middlewares/checkAuth.middleware')
 
 router.use('/auth', AuthRouter)
+router.use('/user/list', checkAuth, ListRouter)
 router.use('/users', checkAuth, UserRouter)
-router.use('/users/list', checkAuth, ListRouter)
 
 module.exports = router
