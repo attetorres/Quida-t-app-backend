@@ -90,9 +90,9 @@ const deleteUser = async (req, res) => {
         })
 
         if (user) {
-            return res.stauts(200).json('User deleted')
+            return res.status(200).json('User deleted')
         } else {
-            return res.stauts(404).send('User not found')
+            return res.status(404).send('User not found')
         }
 
     } catch (error) {
