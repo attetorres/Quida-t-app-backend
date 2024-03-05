@@ -23,12 +23,16 @@ const getAllLists = async (req, res) => {
 
 const getOneList = async (req, res) => {
     try {
-        
+        const list = await ListModel.findByPk(req.params.listId)
+        if (list) {
+            return res.status(200).json(list)
+        } else {
+            return res.status(404).send('List not found')
+        }
     } catch (error) {
         console.log(error)
         res.status(500).send(error.message)
     }
-
 }
 
 const updateList = async (req, res) => {
