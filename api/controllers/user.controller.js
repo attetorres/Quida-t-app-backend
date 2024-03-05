@@ -1,4 +1,5 @@
 const UserModel = require('../models/user.model')
+const { use } = require('../routes')
 
 const getAllUsers = async (req, res) => {
     try {
@@ -61,7 +62,7 @@ const updateUser = async (req, res) => {
     }
 }
 
-const updateUserPsycho = async () => {
+const updateUserPsycho = async (req, res) => {
     try {
        
         const [userExist, user] = await UserModel.update(req.body.psychologist, {
@@ -79,7 +80,7 @@ const updateUserPsycho = async () => {
 
 
 
-const deleteUser = async () => {
+const deleteUser = async (req, res) => {
     try {
         const user = await UserModel.destroy({
             where: {
@@ -99,7 +100,7 @@ const deleteUser = async () => {
     }
 }
 
-const psychoStatusRole = async () => {
+const psychoStatusRole = async (req, res) => {
     try {
         const [userExist, user] = await UserModel.update(req.body.psychologist, req.body.validation, {
             where: {
@@ -118,4 +119,42 @@ const psychoStatusRole = async () => {
     }
 }
 
-module.exports = { getAllUsers, getOneUser, updateUser, updateUserPsycho, deleteUser, psychoStatusRole }
+const getSelfUser = async (req, res) => {
+    try {
+        const user = await UserModel.findOne( {
+            where: {
+                email: res.locals.user.email    
+            }
+        })
+        if (!user) return res.stauts(404).send('User not found')
+        return res.status(500).json(user)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+}
+
+const getUserPsycho = async (req, res) => {
+    try {
+        const userPsycho = await UserModel.findOne( {
+            where: {
+                id: res.locals.user.psychologist    
+            }
+        })
+        if (!user) return res.stauts(404).send('User not found')
+        return res.status(500).json(userPsycho)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+}
+
+module.exports = { 
+    getAllUsers, 
+    getOneUser, 
+    updateUser, 
+    updateUserPsycho, 
+    deleteUser, 
+    psychoStatusRole, 
+    getSelfUser,
+    getUserPsycho }
