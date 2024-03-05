@@ -7,7 +7,7 @@ const createTask = async (req, res) => {
 
         const list = await ListModel.findByPk(req.params.listId)
 
-        const user = await UserModel.findByPk(list.creator_user_id)
+        const user = await UserModel.findByPk(list.userId)
 
         if (user.email === res.locals.user.email){
             const task = await TaskModel.create(req.body)
@@ -74,7 +74,7 @@ const deleteTask = async (req, res) => {
 
         const list = await ListModel.findByPk(task.listId)
 
-        const user = await UserModel.findByPk(list.creator_user_id)
+        const user = await UserModel.findByPk(list.userId)
 
         // compre userId/userEmail from taskId with userId/userEmail from token?
 
