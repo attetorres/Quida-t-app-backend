@@ -71,6 +71,8 @@ const updateUserPsycho = async (req, res) => {
             }
         }) 
 
+
+
         return res.status(200).json(user)
     } catch (error) {
         console.log(error)
@@ -102,16 +104,17 @@ const deleteUser = async (req, res) => {
 
 const psychoStatusRole = async (req, res) => {
     try {
-        const [userExist, user] = await UserModel.update(req.body.psychologist, req.body.validation, {
+        const userExist = await UserModel.update({role: req.body.role, validation: req.body.validation}, {
             where: {
-                id: req.params.id 
+                id: req.params.userId 
             }
         }) 
 
-        if (user) {
-            return res.stauts(200).json('Psychologist validated \n' + user)
+
+        if (userExist) {
+            return res.status(200).json({ message:`Psychologist validated`, user: await UserModel.findByPk(req.params.userId)})
         } else {
-            return res.stauts(404).send('User not found')
+            return res.status(404).send('User not found')
         }
     } catch (error) {
         console.log(error)
@@ -141,7 +144,7 @@ const getUserPsycho = async (req, res) => {
                 id: res.locals.user.psychologist    
             }
         })
-        if (!user) return res.stauts(404).send('User not found')
+        if (!userPsycho) return res.stauts(404).send('User not found')
         return res.status(500).json(userPsycho)
     } catch (error) {
         console.log(error)

@@ -31,6 +31,7 @@ const login = async(req,res) => {
         if(!bcrypt.compareSync(req.body.pass, user.pass)) return res.status(400).json("Error email/password")
 
         const token = jwt.sign({email: user.email, role: user.role}, process.env.JWT_SECRET)
+        res.locals.user = user
         res.status(200).json({token})
 
     } catch (error) {

@@ -25,17 +25,19 @@ const checkAuth = (req,res,next) => {
 
 const checkAdmin = (req,res,next) => {
     if (res.locals.user.role !== 'admin') {
-        return res.status(401).send('User not authorrized')        
+        return res.status(401).send('User not authorized')        
     } else {
         next()
     }
 }
 
 const checkPsycho = (req,res,next) => {
-    console.log(res.locals.users.role)
-    if (res.locals.user.role !== 'psychologist' || res.locals.user.role !== 'admin') {
-        return res.status(401).send('User not authorized')        
+    if (res.locals.user.role !== 'psychologist' && res.locals.user.role !== 'admin') {
+        console.log(`if log: ${res.locals.user.role}`)
+        return res.status(401).send('User not authorized')   
     } else {
+        console.log(`else log: ${res.locals.user.role}`)
+
         next()
     }
 }
