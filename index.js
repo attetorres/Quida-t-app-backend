@@ -6,9 +6,12 @@ const sequelize = require('./db')
 const api = express()
 
 const dbSync = require('./db/sync')
+const addRelationships = require('./db/relationships')
+
 const dbCheck = async () => {
     try {
         await sequelize.authenticate()
+        addRelationships()
         await dbSync()
         console.log('Connected to Quida-t DB')
     } catch (error) {

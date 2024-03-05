@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const sequelize = require('../../db')
 
-const ListModel = sequelize.define('lsit', {
+const ListModel = sequelize.define('list', {
     title: {
         type: DataTypes.STRING
     },
