@@ -1,5 +1,4 @@
 const UserModel = require('../models/user.model')
-const { use } = require('../routes')
 
 const getAllUsers = async (req, res) => {
     try {
