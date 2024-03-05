@@ -20,9 +20,9 @@ const getOneUser = async (req, res) => {
     try {
         const user = await UserModel.findByPk(req.params.id)
         if (user) {
-            return res.stauts(200).json(user)
+            return res.status(200).json(user)
         } else {
-            return res.stauts(404).send('User not found')
+            return res.status(404).send('User not found')
         }
     } catch (error) {
         console.log(error)
