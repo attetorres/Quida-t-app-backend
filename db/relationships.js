@@ -1,15 +1,20 @@
 const UserModel = require('../api/models/user.model')
 const ListModel = require('../api/models/list.model')
 const TaskModel = require('../api/models/task.model')
+const AssignedUsers = require("../api/models/assignedUser.model")
 
 const addRelationships = () => {
     try {
-        UserModel.hasMany(ListModel)
-        ListModel.belongsTo(UserModel)
+        UserModel.belongsToMany(ListModel, { through: "AssignedUsers" })
+        ListModel.belongsToMany(UserModel, { through:" AssignedUsers" })
+
+       UserModel.hasMany(ListModel)
+       ListModel.belongsTo(UserModel)
 
         ListModel.hasMany(TaskModel)
         TaskModel.belongsTo(ListModel)
-
+        
+       
         
     } catch (error) {
         console.log(error)
