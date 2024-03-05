@@ -1,4 +1,5 @@
 const ListModel = require('../models/list.model')
+const UserModel = require('../models/user.model')
 
 const createList = async (req, res) => {
     try {
@@ -43,12 +44,21 @@ const getOneList = async (req, res) => {
 
 const updateList = async (req, res) => {
     try {
-        const list = await ListModel.update(req.body, {
+        const user = await UserModel.findByPk(res.locals.user.id)
+
+        const list = await ListModel.findByPk(req.params.listId)
+  
+        if (user.id !== list.userId) {
+            return res.status(500).send('Unauthorized')
+        }
+
+        const result = await ListModel.update(req.body, {
             where: {
                 id: req.params.listId
             }
         })
-        return res.status(200).json(list)
+       
+        return res.status(200).json('List updated successfully')
 
     } catch (error) {
         console.log(error)
@@ -59,12 +69,21 @@ const updateList = async (req, res) => {
 
 const deleteList = async (req, res) => {
     try {
-        const list = await ListModel.destroy({
+
+        const user = await UserModel.findByPk(res.locals.user.id)
+
+        const list = await ListModel.findByPk(req.params.listId)
+
+        if (user.id !== list.userId) {
+            return res.status(500).send('Unauthorized')
+        }
+
+        const result = await ListModel.destroy({
             where: {
                 id: req.params.listId,
             }
         })
-        if (list) {
+        if (result) {
             return res.status(200).json('List deleted')
         } else {
             return res.status(404).send('List not found')
