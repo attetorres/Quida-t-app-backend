@@ -1,5 +1,7 @@
+const AssignedUsers = require('../models/assignedUser.model')
 const ListModel = require('../models/list.model')
 const UserModel = require('../models/user.model')
+
 
 const createList = async (req, res) => {
     try {
@@ -25,6 +27,30 @@ const getAllLists = async (req, res) => {
         }
 
         return res.status(200).json(list)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+}
+
+const getMyLists = async (req, res) => {
+    try {
+        const createdLists = await ListModel.findAll({
+            where: {
+                userId: res.locals.user.id
+            }
+        })
+
+        const assignedLists = await AssignedUsers.findAll({
+            where: {
+                userId: res.locals.user.id
+            }
+        }) 
+
+        if (createdLists) {
+            res.status(500).json(createdLists)
+        }
 
     } catch (error) {
         console.log(error)
@@ -106,5 +132,6 @@ module.exports = {
     getAllLists,
     getOneList,
     updateList,
-    deleteList
+    deleteList,
+    getMyLists
 }
