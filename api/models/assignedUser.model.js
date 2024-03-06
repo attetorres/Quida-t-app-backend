@@ -4,12 +4,13 @@ const UserModel = require('./user.model')
 const ListModel = require('./list.model')
 
 const AssignedUsers =  sequelize.define("assignedUsers",{
-    id:{
+     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-    },
+    }
+    /*
     userId: {
         type: DataTypes.INTEGER,
         references: { 
@@ -26,7 +27,7 @@ const AssignedUsers =  sequelize.define("assignedUsers",{
         },
         unique: false
         
-    }
+    } */
 })
 
 module.exports = AssignedUsers

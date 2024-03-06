@@ -11,7 +11,7 @@ const RegistryTask = sequelize.define("registryTask",{
         autoIncrement: true,
         allowNull: false
     },
-    taskId: {
+    /* taskId: {
         type: DataTypes.INTEGER,
         references: { 
             model: UserModel,
@@ -27,7 +27,7 @@ const RegistryTask = sequelize.define("registryTask",{
         },
         unique: false
         
-    },
+    }, */
     checkbox: {
         type: DataTypes.BOOLEAN,
         default: false,
