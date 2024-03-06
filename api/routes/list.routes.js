@@ -18,5 +18,7 @@ router.delete('/:listId', deleteList) // check
 
 router.put('/:listId', updateList) // check
 
+router.post('/:listId/:userId') // psycho assigns a list to a patient
+
 
 module.exports = router

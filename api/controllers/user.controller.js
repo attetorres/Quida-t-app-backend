@@ -64,9 +64,9 @@ const updateUser = async (req, res) => {
 const updateUserPsycho = async (req, res) => {
     try {
        
-        const [userExist, user] = await UserModel.update(req.body.psychologist, {
+        const user = await UserModel.update({psychologist: res.locals.user.id}, {
             where: {
-                id: req.params.id 
+                id: req.params.userId 
             }
         }) 
 

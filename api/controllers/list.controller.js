@@ -127,6 +127,15 @@ const deleteList = async (req, res) => {
     }
 }
 
+
+const assignList = () => {
+    // check token.role = psychologist
+    // check :userId is assigned to token.id
+    // check :listId.userId = token.id
+
+    
+}
+
 module.exports = {
     createList,
     getAllLists,
