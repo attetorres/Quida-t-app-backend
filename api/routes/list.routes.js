@@ -3,9 +3,17 @@ const router = require('express').Router()
 const { createList, getAllLists, getOneList, updateList, deleteList } = require('../controllers/list.controller')
 
 
-router.post('/createdList', createList)
+router.post('/', createList) //check 
 
-router.get('/', getAllLists) // privacy: public/private column missing
+router.get('/', getAllLists) // check doesnt return creator (for privacy)
+
+
+
+router.get('/:listId', getOneList)
+
+router.delete('/:listId', deleteList)
+
+router.put('/:listId', updateList)
 
 // USBAT all lists created by themselves
 
@@ -22,14 +30,6 @@ router.get('/', getAllLists) // privacy: public/private column missing
     // createList via router.post('/createdList', createList)
     //      ListModel.create(list, creator = userId via token)
     // 
-
-
-router.get('/:listId', getOneList)
-
-router.delete('/:listId', deleteList)
-
-router.put('/:listId', updateList)
-
 
 
 

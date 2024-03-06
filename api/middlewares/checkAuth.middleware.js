@@ -42,8 +42,18 @@ const checkPsycho = (req,res,next) => {
     }
 }
 
+const checkListCreator = (req, res, next) => {
+    // WIP
+    if (req) {
+
+    } else {
+        next()
+    }
+}
+
 module.exports = {
     checkAuth,
     checkAdmin,
-    checkPsycho
+    checkPsycho,
+    checkListCreator
 }
