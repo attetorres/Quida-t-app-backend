@@ -9,14 +9,15 @@ const createTask = async (req, res) => {
 
         const user = await UserModel.findByPk(list.userId)
 
-        if (user.email === res.locals.user.email){
+        if (user.email === res.locals.user.email) {
+            req.body.listId = req.params.listId
             const task = await TaskModel.create(req.body)
             res.status(200).json({ message: 'Task created', task: task })
 
         } else {
             res.statu(500).send('You are not the creator of the list')
         }
-       
+
 
     } catch (error) {
         console.log(error)
@@ -27,8 +28,18 @@ const createTask = async (req, res) => {
 
 const getAllTasks = async (req, res) => {
     try {
-        const tasks = await TaskModel.findAll()
-        res.status(200).json(tasks)
+
+        const user = await UserModel.findByPk(res.locals.user.id, {
+            include: {
+                model: ListModel,
+                include: {
+                    model: TaskModel
+                }
+            }
+        })
+   
+    res.json(user.dataValues.lists)
+
     } catch (error) {
         console.log(error)
         res.status(500).send('Error getting all tasks')
@@ -38,8 +49,32 @@ const getAllTasks = async (req, res) => {
 
 const getOneTask = async (req, res) => {
     try {
-        const task = await TaskModel.findByPk(req.params.taskId)
-        res.status(200).json(task)
+
+        list = await ListModel.findOne({
+            where: {
+                id: req.params.listId
+            }
+        })
+
+        user = await UserModel.findOne({
+            where: {
+                id: list.userId
+            }
+        })
+
+        if (user.email === res.locals.user.email) {
+           const task =  await TaskModel.findByPk(req.params.taskId, {
+                where: {
+                    id: req.params.taskId
+                }
+            })
+            if (!task) return res.status(500).send('No task found')
+
+            res.status(200).json(task)
+        } else {
+            res.status(500).send('Unauthorized')
+        }
+        
     } catch (error) {
         console.log(error)
         res.status(500).send('Error getting the task')
@@ -51,11 +86,24 @@ const getOneTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
     try {
-        const task = await TaskModel.update(req.body, {
-            where: {
-                id: req.params.taskId
-            }
-        })
+
+        const task = await TaskModel.findByPk(req.params.taskId)
+
+        const list = await ListModel.findByPk(task.listId)
+
+        const user = await UserModel.findByPk(list.userId)
+
+        if (user.email === res.locals.user.email) {
+            await TaskModel.update(req.body, {
+                where: {
+                    id: req.params.taskId
+                }
+            })
+        }
+        if (!task) return res.status(500).send('No task found')
+
+
+
         res.status(200).send('Task updated successfully')
     } catch (error) {
         console.log(error)
@@ -82,14 +130,15 @@ const deleteTask = async (req, res) => {
         if (user.email === res.locals.user.email) {
             await TaskModel.destroy({
                 where: {
-                    id: req.params.taskId}
-                })
+                    id: req.params.taskId
+                }
+            })
 
-        if (!task) return res.status(500).send('No task found')
-        
-        res.status(200).send('Task deleted successfully')
+            if (!task) return res.status(500).send('No task found')
+
+            res.status(200).send('Task deleted successfully')
         }
-        
+
     } catch (error) {
         console.log(error)
         res.status(500).send('Error deleting the task')
