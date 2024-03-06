@@ -3,7 +3,9 @@ const UserModel = require('../models/user.model')
 
 const createList = async (req, res) => {
     try {
+        req.body.userId = res.locals.user.id 
         const list = await ListModel.create(req.body)
+
         res.status(200).json({ message: 'List created', list: list })
 
     } catch (error) {
@@ -14,7 +16,9 @@ const createList = async (req, res) => {
 
 const getAllLists = async (req, res) => {
     try {
-        const list = await ListModel.findAll()
+        const list = await ListModel.findAll({
+            attributes: {exclude: ['userId']}
+        })
 
         if (!list) {
             return res.status(404).send('List not found')
@@ -30,7 +34,9 @@ const getAllLists = async (req, res) => {
 
 const getOneList = async (req, res) => {
     try {
-        const list = await ListModel.findByPk(req.params.listId)
+        const list = await ListModel.findByPk(req.params.listId, {
+            attributes: {exclude: ['userId']}
+        })
         if (list) {
             return res.status(200).json(list)
         } else {
