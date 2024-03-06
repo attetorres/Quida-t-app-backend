@@ -10,9 +10,8 @@ const signUp = async(req,res) => {
         const user = await UserModel.create(req.body)
 
         const token = jwt.sign({email: user.email, role: user.role}, process.env.JWT_SECRET)
-
+        res.locals.user = user
         res.status(200).json({token: token})
-        console.log(token)
 
     } catch (error) {
         console.log(error)

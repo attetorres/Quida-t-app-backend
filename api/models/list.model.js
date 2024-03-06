@@ -11,7 +11,7 @@ const ListModel = sequelize.define('list', {
             max: 250
         }
     },
-    creator_user_id: {
+    userId: {
         type: DataTypes.INTEGER
     },
     cycle: {
