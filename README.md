@@ -31,6 +31,30 @@ Config a `.env` file as explained on `.env.example`
 ## API ROUTES
 
 ### AUTH ENDPOINTS
+
+- `/api/register`: Endpoint for user registration.
+- `/api/login`: Endpoint for user login.
+
+
 ### USER ENDPOINTS
+
+- `/api/users`: Endpoint to retrieve a list of all users.
+- `/api/profile`: Endpoint for user profile management.
+- `/api/users/assigned`: Endpoint for psychologists to retrieve their assigned users.
+- `/api/users/:userId`: Endpoint to retrieve detailed information about a specific user.
+- `/api/users/:userId/request`: Endpoint for psychologists to send requests to specific users.
+
+  
 ### LIST ENDPOINTS
+
+- `/api/lists/created`: Endpoint to retrieve lists created by the authenticated user.
+- `/api/lists/assigned`: Endpoint to retrieve lists assigned to the authenticated user.
+- `/api/lists`: Endpoints for managing lists (CRUD operations).
+- `/api/lists/:list_id`: Endpoint to retrieve, update, or delete a specific list.
+
+  
 ### TASK ENDPOINTS
+
+- `/api/lists/:list_id/tasks`: Endpoints for managing tasks within a specific list (CRUD operations).
+- `/api/lists/:list_id/tasks/:task_id`: Endpoint to retrieve, update, or delete a specific task within a list.
+- `/api/lists/:list_id/tasks/:task_id/complete`: Endpoint to mark a task as completed within a specific list.
