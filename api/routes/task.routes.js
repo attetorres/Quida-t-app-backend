@@ -12,7 +12,7 @@ const {
 } = require('../controllers/task.controller')
 
 router.get('/', getAllTasks) //check 
-router.get('/:listId/:taskId', getOneTask)
+router.get('/:listId/:taskId', getOneTask) //check
 
 
 router.post('/:listId', createTask) // check
