@@ -16,18 +16,18 @@ const createTask = async (req, res) => {
             const task = await TaskModel.create(req.body)
 
             if (res.locals.user.role === 'patient') {
-              const assignment = await AssignedUsersModel.findOne({
-                where: {
-                    userId: user.id,
-                    listId: list.id 
-                }
-              })
+                const assignment = await AssignedUsersModel.findOne({
+                    where: {
+                        userId: user.id,
+                        listId: list.id 
+                    }
+                })
 
               await RegistryTaskModel.create({
                 taskId: task.id,
                 assignedUserId: assignment.id,
                 
-              })
+                })
 
             }
 
