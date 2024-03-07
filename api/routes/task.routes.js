@@ -8,12 +8,13 @@ const {
     getOneTask,
     createTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    getAllTasksOneList
 } = require('../controllers/task.controller')
 
 router.get('/', getAllTasks) //check 
 router.get('/:listId/:taskId', getOneTask) //check
-
+router.get('/:listId', getAllTasksOneList)//check
 
 router.post('/:listId', createTask) // check
 

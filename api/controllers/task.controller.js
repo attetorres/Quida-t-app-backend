@@ -32,7 +32,7 @@ const createTask = async (req, res) => {
             }
 
             
-
+            RegistryTaskModel
             res.status(200).json({ message: 'Task created', task: task })
 
         } else {
@@ -167,10 +167,26 @@ const deleteTask = async (req, res) => {
 
 }
 
+const getAllTasksOneList= async (req,res)=>{
+    try {
+        const task = await TaskModel.findAll({
+            where:{
+                listId: req.params.listId
+            }
+        })
+        if(!task) return res.status(500).send("Task not found")
+        res.status(200).json(task)
+    
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('Error getting task')
+    }
+}
 module.exports = {
     getAllTasks,
     getOneTask,
     createTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    getAllTasksOneList
 }
