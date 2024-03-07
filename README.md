@@ -35,7 +35,7 @@ Config a `.env` file as explained on `.env.example`
 
 |Method   |Endpoint   |Token   |Role   |Description   |Params   |Returns   |
 |---|---|---|---|---|---|---|
-| POST  |/signup   |No   | -  |Creates an account   |-   | {token}
+| POST  |/signup   |NO   | -  |Creates an account   |-   | {token}
 |  POST |/login   |NO   |-   |Logs in    |-   | {token}   |
 
 ### USER ENDPOINTS (/users)
