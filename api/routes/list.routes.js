@@ -1,36 +1,24 @@
 const router = require('express').Router()
 
-const { createList, getAllLists, getOneList, updateList, deleteList } = require('../controllers/list.controller')
+const { createList, getAllLists, getOneList, updateList, deleteList, getMyLists } = require('../controllers/list.controller')
 
 
-router.post('/createdList', createList)
+router.post('/', createList) //check 
 
-router.get('/', getAllLists) // privacy: public/private column missing
+router.get('/', getAllLists) // check doesnt return creator (for privacy)
 
-// USBAT all lists created by themselves
+// USBAT get all lists created by themselves
+//                  +
+// USBAT get all lists assigned to them
+router.get('/myLists', getMyLists) // myList check, assignedLists not check 
 
+router.get('/:listId', getOneList) // check
 
-// USBAT all lists assigned to them
+router.delete('/:listId', deleteList) // check
 
+router.put('/:listId', updateList) // check
 
-// USBAT copy a list copyList()
-    // userId via token
-    // listId via param
-    //
-    // list via findByPk (/:listId)
-    //
-    // createList via router.post('/createdList', createList)
-    //      ListModel.create(list, creator = userId via token)
-    // 
-
-
-router.get('/:listId', getOneList)
-
-router.delete('/:listId', deleteList)
-
-router.put('/:listId', updateList)
-
-
+router.post('/:listId/:userId') // psycho assigns a list to a patient
 
 
 module.exports = router
