@@ -28,15 +28,31 @@ Config a `.env` file as explained on `.env.example`
 ### DB_TABLES
 
 
-## API ROUTES
-
-### AUTH ENDPOINTS
-
-- `/api/register`: Endpoint for user registration.
-- `/api/login`: Endpoint for user login.
+## API ROUTES (/api)
 
 
-### USER ENDPOINTS
+### AUTH ENDPOINTS (/auth)
+
+|Method   |Endpoint   |Token   |Role   |Description   |Params   |Returns   |
+|---|---|---|---|---|---|---|
+| POST  |/signup   |No   | -  |Creates an account   |-   | {token}
+|  POST |/login   |NO   |-   |Logs in    |-   | {token}   |
+
+### USER ENDPOINTS (/users)
+
+|Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                               |
+|--------|----------------|-----|--------------|--------------------------------|--------|--------------------------------------|
+| GET    |  /             | YES | Psychologist | Get all Users                  | -      | [{users}]                            |
+| GET    | /profile       | YES | -            | Get self profile               | -      |  {user}                              |
+| GET    | /psychologist  | YES | -            | Get assigned Psychologist      | -      | {psychologist}                       |
+| GET    | /:userId       | YES | -            | Get one user                   | userId | {user}                               |
+| PUT    | /              | YES | -            | Update user                    | -      | {user}                               |
+| PUT    | /:userId       | YES | Psychologist | Assign psychologist to an user | userId |  {user}                              |
+| PUT    | /admin/:userId | YES | Admin        | Validate psychologist role     | userId | Updated successfully, {psychologist} |
+| PUT    | /close/:listId | YES | -            | Close task list registry       | listId |  [{tasks}]                           |
+| DELETE | /              | YES | -            | Delete user                    | -      |  User deleted                        |
+
+
 
 - `/api/users`: Endpoint to retrieve a list of all users.
 - `/api/profile`: Endpoint for user profile management.
@@ -47,6 +63,25 @@ Config a `.env` file as explained on `.env.example`
   
 ### LIST ENDPOINTS
 
+|   |   |   |   |   |   |   |
+|---|---|---|---|---|---|---|
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+
+- `/api/lists`: a
+- `/api/lists`: b
+- `/api/lists`: c
+- `/api/lists`: d
+
 - `/api/lists/created`: Endpoint to retrieve lists created by the authenticated user.
 - `/api/lists/assigned`: Endpoint to retrieve lists assigned to the authenticated user.
 - `/api/lists`: Endpoints for managing lists (CRUD operations).
@@ -54,6 +89,26 @@ Config a `.env` file as explained on `.env.example`
 
   
 ### TASK ENDPOINTS
+
+|   |   |   |   |   |   |   |
+|---|---|---|---|---|---|---|
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |
+
+- `/api/tasks`:
+- `/api/tasks`:
+- `/api/tasks`:
+- `/api/tasks`:
+- `/api/tasks`:
 
 - `/api/lists/:list_id/tasks`: Endpoints for managing tasks within a specific list (CRUD operations).
 - `/api/lists/:list_id/tasks/:task_id`: Endpoint to retrieve, update, or delete a specific task within a list.
