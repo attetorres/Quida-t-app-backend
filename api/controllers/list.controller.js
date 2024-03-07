@@ -10,6 +10,13 @@ const createList = async (req, res) => {
         req.body.userId = res.locals.user.id 
         const list = await ListModel.create(req.body)
 
+        if (res.locals.user.role === 'patient') {
+            const assignation = await AssignedUsers.create({
+                userId: res.locals.user.id,
+                listId: list.id
+           })
+        }
+
         res.status(200).json({ message: 'List created', list: list })
 
     } catch (error) {
@@ -17,6 +24,7 @@ const createList = async (req, res) => {
         res.status(500).send(error.message)
     }
 }
+
 
 const getAllLists = async (req, res) => {
     try {
