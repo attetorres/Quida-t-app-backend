@@ -1,3 +1,5 @@
+const AssignedUsers = require('../models/assignedUser.model')
+const RegistryTaskModel = require('../models/registryTask.model')
 const UserModel = require('../models/user.model')
 
 const getAllUsers = async (req, res) => {
@@ -149,6 +151,49 @@ const getUserPsycho = async (req, res) => {
     }
 }
 
+const closeList = async (req, res) => {
+
+    
+    const assignment = await AssignedUsers.findOne({
+        where: {
+            listId: req.params.listId,
+            userId: res.locals.user.id
+        }
+    })
+    
+    const closed = await RegistryTaskModel.update({"closed": true},{
+        where:{
+            assignedUserId: assignment.id,
+            closed: false
+        }
+    })
+
+    let registry = await RegistryTaskModel.findAll({
+        where:{
+            assignedUserId: assignment.id,
+            closed: true
+        }
+    })
+
+    tasks = registry.map((task) => {
+       return  {assignedUserId: assignment.id,
+        taskId:task.dataValues.taskId}
+    })
+
+    res.json(tasks)
+    console.log(tasks)
+
+    const registryTask = await RegistryTaskModel.bulkCreate(tasks)
+
+   // console.log(registry)
+
+
+    // all tasks, in column close = true, in registryTasks
+    // those tasks, bulkCreate (tasks) in registryTasks
+    // to get to registryTasks, we need assignedUserId
+
+}
+
 module.exports = { 
     getAllUsers, 
     getOneUser, 
@@ -157,4 +202,6 @@ module.exports = {
     deleteUser, 
     psychoStatusRole, 
     getSelfUser,
-    getUserPsycho }
+    getUserPsycho,
+    closeList
+ }
