@@ -90,7 +90,7 @@ const deleteUser = async (req, res) => {
     try {
         const user = await UserModel.destroy({
             where: {
-                email: res.locals.email,
+                email: res.locals.user.email,
             }
         })
 
@@ -171,7 +171,7 @@ const closeList = async (req, res) => {
         }
     })
     
-    const closed = await RegistryTaskModel.update({"closed": true},{
+    const closed = await RegistryTaskModel.update({"closuserIded": true},{
         where:{
             assignedUserId: assignment.id,
             closed: false
