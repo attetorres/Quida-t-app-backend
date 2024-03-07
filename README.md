@@ -52,6 +52,7 @@ Config a `.env` file as explained on `.env.example`
 | PUT    | /close/:listId | YES | -            | Close task list registry       | listId |  [{tasks}]                           |
 | DELETE | /              | YES | -            | Delete user                    | -      |  User deleted                        |
 
+CHECKED ENDPOINTS -----
   
 ### LIST ENDPOINTS
 
