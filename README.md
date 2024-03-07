@@ -52,18 +52,11 @@ Config a `.env` file as explained on `.env.example`
 | PUT    | /close/:listId | YES | -            | Close task list registry       | listId |  [{tasks}]                           |
 | DELETE | /              | YES | -            | Delete user                    | -      |  User deleted                        |
 
-
-
-- `/api/users`: Endpoint to retrieve a list of all users.
-- `/api/profile`: Endpoint for user profile management.
-- `/api/users/assigned`: Endpoint for psychologists to retrieve their assigned users.
-- `/api/users/:userId`: Endpoint to retrieve detailed information about a specific user.
-- `/api/users/:userId/request`: Endpoint for psychologists to send requests to specific users.
-
   
 ### LIST ENDPOINTS
 
-|   |   |   |   |   |   |   |
+
+|Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                               |
 |---|---|---|---|---|---|---|
 |   |   |   |   |   |   |   |
 |   |   |   |   |   |   |   |
@@ -90,7 +83,8 @@ Config a `.env` file as explained on `.env.example`
   
 ### TASK ENDPOINTS
 
-|   |   |   |   |   |   |   |
+
+|Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                               |
 |---|---|---|---|---|---|---|
 |   |   |   |   |   |   |   |
 |   |   |   |   |   |   |   |
