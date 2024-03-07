@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { createList, getAllLists, getOneList, updateList, deleteList, getMyLists } = require('../controllers/list.controller')
+const { createList, getAllLists, getOneList, updateList, deleteList, getMyLists, assignList } = require('../controllers/list.controller')
 
 
 router.post('/', createList) //check 
@@ -18,7 +18,7 @@ router.delete('/:listId', deleteList) // check
 
 router.put('/:listId', updateList) // check
 
-router.post('/:listId/:userId') // psycho assigns a list to a patient
+router.post('/:listId/:userId', assignList) // psycho assigns a list to a patient
 
 
 module.exports = router

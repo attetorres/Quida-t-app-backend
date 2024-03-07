@@ -42,18 +42,19 @@ const checkPsycho = (req,res,next) => {
     }
 }
 
-const checkListCreator = (req, res, next) => {
+/* const checkListCreator = (req, res, next) => {
     // WIP
     if (req) {
 
     } else {
         next()
     }
-}
+} */
+
+// DONE manually in each task
 
 module.exports = {
     checkAuth,
     checkAdmin,
     checkPsycho,
-    checkListCreator
 }

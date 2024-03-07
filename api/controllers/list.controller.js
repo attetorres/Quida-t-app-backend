@@ -128,10 +128,43 @@ const deleteList = async (req, res) => {
 }
 
 
-const assignList = () => {
-    // check token.role = psychologist
-    // check :userId is assigned to token.id
-    // check :listId.userId = token.id
+const assignList = async (req, res) => {
+    try {
+        
+        const user = await UserModel.findByPk(req.params.userId)
+
+        console.log(user.psychologist, res.locals.user.id)
+
+        if (user.psychologist !== res.locals.user.id) {
+            return res.status(500).send('You are not this patient\'s psychologist')
+        }
+
+        const list = await ListModel.findByPk(req.params.listId)
+
+        if (list.userId !== res.locals.user.id) {
+            return res.status(500).send('You are not this list\'s creator')
+        }
+
+        const assignation = await AssignedUsers.create({
+            userId: req.params.userId,
+            listId: req.params.listId
+        })
+
+        if (!assignation) return res.status(500).send('List could not be assigned')
+
+        res.status(200).json(assignation)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+
+   
+  
+    // const user = req params :userId 
+
+
+    // check user.psychologist = token.id
 
     
 }
@@ -142,5 +175,6 @@ module.exports = {
     getOneList,
     updateList,
     deleteList,
-    getMyLists
+    getMyLists,
+    assignList
 }
