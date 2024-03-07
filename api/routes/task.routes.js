@@ -4,7 +4,7 @@ const router = require('express').Router()
 
 
 const {
-    getAllTasks,
+    getAllMyTasks,
     getOneTask,
     createTask,
     updateTask,
@@ -12,7 +12,7 @@ const {
     getAllTasksOneList
 } = require('../controllers/task.controller')
 
-router.get('/', getAllTasks) //check 
+router.get('/', getAllMyTasks) //check 
 router.get('/:listId/:taskId', getOneTask) //check
 router.get('/:listId', getAllTasksOneList)//check
 

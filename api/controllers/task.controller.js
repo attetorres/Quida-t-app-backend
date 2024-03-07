@@ -47,7 +47,7 @@ const createTask = async (req, res) => {
 
 }
 
-const getAllTasks = async (req, res) => {
+const getAllMyTasks = async (req, res) => {
     try {
 
         const user = await UserModel.findByPk(res.locals.user.id, {
@@ -176,14 +176,14 @@ const getAllTasksOneList= async (req,res)=>{
         })
         if(!task) return res.status(500).send("Task not found")
         res.status(200).json(task)
-    
+
     } catch (error) {
         console.log(error)
         res.status(500).send('Error getting task')
     }
 }
 module.exports = {
-    getAllTasks,
+    getAllMyTasks,
     getOneTask,
     createTask,
     updateTask,
