@@ -140,10 +140,15 @@ const getUserPsycho = async (req, res) => {
     try {
         const userPsycho = await UserModel.findOne( {
             where: {
-                id: res.locals.user.psychologist    
+                id: res.locals.user.psychologist, 
+            },
+
+            attributes: {
+                exclude: ['pass', 'email', 'phone', 'psychologist',
+                        'createdAt', 'updatedAt']
             }
         })
-        if (!userPsycho) return res.stauts(404).send('User not found')
+        if (!userPsycho) return res.status(404).send('User not found')
         return res.status(500).json(userPsycho)
     } catch (error) {
         console.log(error)
