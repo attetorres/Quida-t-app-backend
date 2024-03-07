@@ -59,7 +59,7 @@ const getMyLists = async (req, res) => {
         }) 
 
         if (createdLists) {
-            res.status(500).json({createdLists, assignedLists})
+            res.status(200).json({createdLists, assignedLists})
         }
 
     } catch (error) {
