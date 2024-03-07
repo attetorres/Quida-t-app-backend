@@ -90,7 +90,7 @@ const deleteUser = async (req, res) => {
     try {
         const user = await UserModel.destroy({
             where: {
-                email: res.locals.email,
+                email: res.locals.user.email,
             }
         })
 
