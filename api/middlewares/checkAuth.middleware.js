@@ -12,7 +12,7 @@ const checkAuth = (req,res,next) => {
                     email: payload.email
                 }
             })
-            if (!user) return res.stauts(400).send('Unauthorized 3')
+            if (!user) return res.status(400).send('Unauthorized 3')
             res.locals.user = user
             next()
         })
