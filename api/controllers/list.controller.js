@@ -1,6 +1,8 @@
 const AssignedUsers = require('../models/assignedUser.model')
 const ListModel = require('../models/list.model')
+const TaskModel = require('../models/task.model')
 const UserModel = require('../models/user.model')
+const RegistryTaskModel = require ('../models/registryTask.model')
 
 
 const createList = async (req, res) => {
@@ -133,7 +135,6 @@ const assignList = async (req, res) => {
         
         const user = await UserModel.findByPk(req.params.userId)
 
-        console.log(user.psychologist, res.locals.user.id)
 
         if (user.psychologist !== res.locals.user.id) {
             return res.status(500).send('You are not this patient\'s psychologist')
@@ -150,7 +151,24 @@ const assignList = async (req, res) => {
             listId: req.params.listId
         })
 
+    
+
         if (!assignation) return res.status(500).send('List could not be assigned')
+
+        const getAllAssignedTasks = await TaskModel.findAll({
+            where: {
+                listId: list.id
+            }
+        })
+
+       const tasks = getAllAssignedTasks.map((task) => {
+        return {taskId: task.dataValues.id,
+                assignedUserId: assignation.id,
+        }})
+
+       //console.log(tasks)
+
+       const registryTasks = await RegistryTaskModel.bulkCreate(tasks)
 
         res.status(200).json(assignation)
 
@@ -168,6 +186,9 @@ const assignList = async (req, res) => {
 
     
 }
+
+
+
 
 module.exports = {
     createList,
