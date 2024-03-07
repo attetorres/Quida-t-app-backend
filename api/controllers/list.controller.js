@@ -1,12 +1,21 @@
 const AssignedUsers = require('../models/assignedUser.model')
 const ListModel = require('../models/list.model')
+const TaskModel = require('../models/task.model')
 const UserModel = require('../models/user.model')
+const RegistryTaskModel = require ('../models/registryTask.model')
 
 
 const createList = async (req, res) => {
     try {
         req.body.userId = res.locals.user.id 
         const list = await ListModel.create(req.body)
+
+        if (res.locals.user.role === 'patient') {
+            const assignation = await AssignedUsers.create({
+                userId: res.locals.user.id,
+                listId: list.id
+           })
+        }
 
         res.status(200).json({ message: 'List created', list: list })
 
@@ -15,6 +24,7 @@ const createList = async (req, res) => {
         res.status(500).send(error.message)
     }
 }
+
 
 const getAllLists = async (req, res) => {
     try {
@@ -128,13 +138,65 @@ const deleteList = async (req, res) => {
 }
 
 
-const assignList = () => {
-    // check token.role = psychologist
-    // check :userId is assigned to token.id
-    // check :listId.userId = token.id
+const assignList = async (req, res) => {
+    try {
+        
+        const user = await UserModel.findByPk(req.params.userId)
+
+
+        if (user.psychologist !== res.locals.user.id) {
+            return res.status(500).send('You are not this patient\'s psychologist')
+        }
+
+        const list = await ListModel.findByPk(req.params.listId)
+
+        if (list.userId !== res.locals.user.id) {
+            return res.status(500).send('You are not this list\'s creator')
+        }
+
+        const assignation = await AssignedUsers.create({
+            userId: req.params.userId,
+            listId: req.params.listId
+        })
+
+    
+
+        if (!assignation) return res.status(500).send('List could not be assigned')
+
+        const getAllAssignedTasks = await TaskModel.findAll({
+            where: {
+                listId: list.id
+            }
+        })
+
+       const tasks = getAllAssignedTasks.map((task) => {
+        return {taskId: task.dataValues.id,
+                assignedUserId: assignation.id,
+        }})
+
+       //console.log(tasks)
+
+       const registryTasks = await RegistryTaskModel.bulkCreate(tasks)
+
+        res.status(200).json(assignation)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+
+   
+  
+    // const user = req params :userId 
+
+
+    // check user.psychologist = token.id
 
     
 }
+
+
+
 
 module.exports = {
     createList,
@@ -142,5 +204,6 @@ module.exports = {
     getOneList,
     updateList,
     deleteList,
-    getMyLists
+    getMyLists,
+    assignList
 }

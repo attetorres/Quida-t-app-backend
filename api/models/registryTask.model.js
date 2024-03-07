@@ -4,7 +4,7 @@ const UserModel = require('./user.model')
 const TaskModel = require('./task.model')
 
 
-const RegistryTask = sequelize.define("registryTask",{
+const RegistryTaskModel = sequelize.define("registryTask",{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -30,19 +30,19 @@ const RegistryTask = sequelize.define("registryTask",{
     }, */
     checkbox: {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
     },
     moodRanking: {
         type: DataTypes.INTEGER,
-        default: false,
+        defaultValue: false,
         validate: {
             max: 10,
         }
     },
     closed: {
         type: DataTypes.BOOLEAN,
-        default: false
+        defaultValue: false
     }
 
 })
-module.exports = RegistryTask
+module.exports = RegistryTaskModel

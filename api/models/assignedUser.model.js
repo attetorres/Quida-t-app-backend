@@ -30,4 +30,4 @@ const AssignedUsers =  sequelize.define("assignedUsers",{
     } */
 })
 
-//module.exports = AssignedUsers
+module.exports = AssignedUsers

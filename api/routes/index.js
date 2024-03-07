@@ -8,7 +8,7 @@ const TaskRouter = require('./task.routes')
 const { checkAuth } = require('../middlewares/checkAuth.middleware')
 
 router.use('/auth', AuthRouter) // check
-router.use('/tasks', checkAuth, TaskRouter)
+router.use('/tasks', checkAuth, TaskRouter) // check
 router.use('/lists', checkAuth, ListRouter)
 router.use('/users', checkAuth, UserRouter) //check
 

@@ -1,7 +1,7 @@
 const UserModel = require('../api/models/user.model')
 const ListModel = require('../api/models/list.model')
 const TaskModel = require('../api/models/task.model')
-//const AssignedUsers = require("../api/models/assignedUser.model")
+const AssignedUsers = require("../api/models/assignedUser.model")
 const RegistryTask = require("../api/models/registryTask.model")
 
 const addRelationships = () => {
