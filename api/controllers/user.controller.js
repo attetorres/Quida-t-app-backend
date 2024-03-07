@@ -20,7 +20,12 @@ const getAllUsers = async (req, res) => {
 
 const getOneUser = async (req, res) => {
     try {
-        const user = await UserModel.findByPk(req.params.userId)
+        const user = await UserModel.findByPk(req.params.userId, {
+            attributes: {
+                exclude: ['pass', 'email', 'phone', 
+                        'createdAt', 'updatedAt']
+            }
+        })
         if (user) {
             return res.status(200).json(user)
         } else {
