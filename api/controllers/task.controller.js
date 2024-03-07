@@ -1,6 +1,8 @@
 const TaskModel = require('../models/task.model')
 const ListModel = require('../models/list.model')
 const UserModel = require('../models/user.model')
+const AssignedUsersModel = require('../models/assignedUser.model')
+const RegistryTaskModel = require('../models/registryTask.model')
 
 const createTask = async (req, res) => {
     try {
@@ -12,6 +14,25 @@ const createTask = async (req, res) => {
         if (user.email === res.locals.user.email) {
             req.body.listId = req.params.listId
             const task = await TaskModel.create(req.body)
+
+            if (res.locals.user.role === 'patient') {
+              const assignment = await AssignedUsersModel.findOne({
+                where: {
+                    userId: user.id,
+                    listId: list.id 
+                }
+              })
+
+              await RegistryTaskModel.create({
+                taskId: task.id,
+                assignedUserId: assignment.id,
+                
+              })
+
+            }
+
+            
+
             res.status(200).json({ message: 'Task created', task: task })
 
         } else {
