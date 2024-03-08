@@ -23,4 +23,5 @@ const dbSync = async () => {
     }
 }
 
+
 module.exports = dbSync

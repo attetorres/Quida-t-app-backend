@@ -8,11 +8,9 @@ const UserModel = sequelize.define('user', {
     },
     name: {
         type: DataTypes.STRING,
-        
     },
     lastname: {
         type: DataTypes.STRING,
-    
     },
     pass: {
         type: DataTypes.STRING,

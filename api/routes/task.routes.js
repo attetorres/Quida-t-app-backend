@@ -1,8 +1,5 @@
 const router = require('express').Router()
 
-//const { checkListCreator } = require('../middlewares/checkAuth.middleware')
-
-
 const {
     getAllMyTasks,
     getOneTask,
@@ -12,15 +9,15 @@ const {
     getAllTasksOneList
 } = require('../controllers/task.controller')
 
-router.get('/', getAllMyTasks) //check 
-router.get('/:listId/:taskId', getOneTask) //check
-router.get('/:listId', getAllTasksOneList)//check
+router.post('/:listId', createTask)
 
-router.post('/:listId', createTask) // check
+router.get('/', getAllMyTasks) 
+router.get('/:listId/:taskId', getOneTask) 
+router.get('/:listId', getAllTasksOneList)
 
-router.put('/:listId/:taskId',  updateTask) // check
+router.put('/:listId/:taskId',  updateTask)
 
-router.delete('/:listId/:taskId', deleteTask) // check
+router.delete('/:listId/:taskId', deleteTask)
 
 
 module.exports = router

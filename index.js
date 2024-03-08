@@ -23,9 +23,7 @@ const dbCheck = async () => {
 api.use(morgan('dev'))
 api.use(express.json())
 
-
 api.use('/api', require ('./api/routes'))
-
 
 api.listen(process.env.PORT, async (err) => {
     if (err) throw new Error ('Cannot start api')
