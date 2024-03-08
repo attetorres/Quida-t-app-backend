@@ -14,7 +14,7 @@ const checkAuth = (req,res,next) => {
                 }
             })
             
-            if (!user) return res.status(400).send('Unauthorized')
+            if (!user) return res.status(401).send('Unauthorized')
 
             res.locals.user = user
             next()

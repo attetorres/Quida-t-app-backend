@@ -30,7 +30,7 @@ const createTask = async (req, res) => {
             res.status(200).json({ message: 'Task created', task: task })
 
         } else {
-            res.status(500).send('You are not the creator of the list')
+            res.status(401).send('You are not the creator of the list')
         }
 
     } catch (error) {
@@ -78,7 +78,7 @@ const getOneTask = async (req, res) => {
                     id: req.params.taskId
                 }
             })
-            if (!task) return res.status(500).send('No task found')
+            if (!task) return res.status(404).send('Task not found')
 
             res.status(200).json(task)
         } else {
@@ -104,7 +104,7 @@ const updateTask = async (req, res) => {
                 }
             })
         }
-        if (!task) return res.status(500).send('No task found')
+        if (!task) return res.status(404).send('Task not found')
 
         res.status(200).send('Task updated successfully')
 
@@ -128,7 +128,7 @@ const deleteTask = async (req, res) => {
                 }
             })
 
-            if (!task) return res.status(500).send('No task found')
+            if (!task) return res.status(404).send('Task not found')
 
             res.status(200).send('Task deleted successfully')
         }
@@ -146,8 +146,8 @@ const getAllTasksOneList= async (req,res)=>{
                 listId: req.params.listId
             }
         })
-        
-        if(!task) return res.status(500).send("Task not found")
+
+        if(!task) return res.status(404).send("Task not found")
 
         res.status(200).json(task)
 

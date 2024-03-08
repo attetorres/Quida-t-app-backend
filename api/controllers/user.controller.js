@@ -51,7 +51,7 @@ const updateUser = async (req, res) => {
         req.body.role = user.role
         req.body.psychologist = user.psychologist
 
-        if (!user) return res.status(500).send('User not found')
+        if (!user) return res.status(404).send('User not found')
 
         const result = await UserModel.update(req.body, {
             where: {
@@ -116,7 +116,9 @@ const psychoStatusRole = async (req, res) => {
         }) 
 
         if (userExist) {
-            return res.status(200).json({ message:`Psychologist validated`, user: await UserModel.findByPk(req.params.userId)})
+            return res.status(200).json({ 
+                message:`Psychologist validated`, 
+                user: await UserModel.findByPk(req.params.userId)})
         } else {
             return res.status(404).send('User not found')
         }
@@ -168,37 +170,43 @@ const getUserPsycho = async (req, res) => {
 }
 
 const closeList = async (req, res) => {
+    try {
+        const assignment = await AssignedUsers.findOne({
+            where: {
+                listId: req.params.listId,
+                userId: res.locals.user.id
+            }
+        })
 
-    const assignment = await AssignedUsers.findOne({
-        where: {
-            listId: req.params.listId,
-            userId: res.locals.user.id
-        }
-    })
+        let registry = await RegistryTaskModel.findAll({
+            where: {
+                assignedUserId: assignment.id,
+                closed: false
+            }
+        })
+        
+        const closed = await RegistryTaskModel.update({"closed": true},{
+            where: {
+                assignedUserId: assignment.id,
+                closed: false
+            }
+        })
 
-    let registry = await RegistryTaskModel.findAll({
-        where: {
-            assignedUserId: assignment.id,
-            closed: false
-        }
-    })
-    
-    const closed = await RegistryTaskModel.update({"closed": true},{
-        where: {
-            assignedUserId: assignment.id,
-            closed: false
-        }
-    })
+        tasks = registry.map((task) => {
+        return  {assignedUserId: assignment.id,
+                    taskId:task.dataValues.taskId,
+                    closed: task.dataValues.closed }
+        })
 
-    tasks = registry.map((task) => {
-       return  {assignedUserId: assignment.id,
-                taskId:task.dataValues.taskId,
-                closed: task.dataValues.closed }
-    })
-
-    res.json(tasks)
+        res.json(tasks)
 
     const registryTask = await RegistryTaskModel.bulkCreate(tasks)
+    
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+
 }
 
 
