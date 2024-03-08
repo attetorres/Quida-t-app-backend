@@ -188,7 +188,8 @@ const closeList = async (req, res) => {
 
     tasks = registry.map((task) => {
        return  {assignedUserId: assignment.id,
-        taskId:task.dataValues.taskId}
+        taskId:task.dataValues.taskId,
+        closed: task.dataValues.closed }
     })
 
     res.json(tasks)
