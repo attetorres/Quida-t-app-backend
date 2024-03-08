@@ -170,6 +170,13 @@ const closeList = async (req, res) => {
             userId: res.locals.user.id
         }
     })
+
+    let registry = await RegistryTaskModel.findAll({
+        where:{
+            assignedUserId: assignment.id,
+            closed: false
+        }
+    })
     
     const closed = await RegistryTaskModel.update({"closed": true},{
         where:{
@@ -178,12 +185,6 @@ const closeList = async (req, res) => {
         }
     })
 
-    let registry = await RegistryTaskModel.findAll({
-        where:{
-            assignedUserId: assignment.id,
-            closed: true
-        }
-    })
 
     tasks = registry.map((task) => {
        return  {assignedUserId: assignment.id,
