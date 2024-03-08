@@ -90,7 +90,7 @@ const updateList = async (req, res) => {
         const list = await ListModel.findByPk(req.params.listId)
   
         if (user.id !== list.userId) {
-            return res.status(500).send('Unauthorized')
+            return res.status(401).send('Unauthorized')
         }
 
         const result = await ListModel.update(req.body, {
@@ -113,7 +113,7 @@ const deleteList = async (req, res) => {
         const list = await ListModel.findByPk(req.params.listId)
 
         if (user.id !== list.userId) {
-            return res.status(500).send('Unauthorized')
+            return res.status(401).send('Unauthorized')
         }
 
         const result = await ListModel.destroy({
@@ -140,13 +140,13 @@ const assignList = async (req, res) => {
         const user = await UserModel.findByPk(req.params.userId)
 
         if (user.psychologist !== res.locals.user.id) {
-            return res.status(500).send('You are not this patient\'s psychologist')
+            return res.status(401).send('You are not this patient\'s psychologist')
         }
 
         const list = await ListModel.findByPk(req.params.listId)
 
         if (list.userId !== res.locals.user.id) {
-            return res.status(500).send('You are not this list\'s creator')
+            return res.status(401).send('You are not this list\'s creator')
         }
 
         const assignation = await AssignedUsers.create({
