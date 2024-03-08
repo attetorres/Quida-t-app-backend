@@ -171,7 +171,7 @@ const closeList = async (req, res) => {
         }
     })
     
-    const closed = await RegistryTaskModel.update({"closuserIded": true},{
+    const closed = await RegistryTaskModel.update({"closed": true},{
         where:{
             assignedUserId: assignment.id,
             closed: false
@@ -196,7 +196,7 @@ const closeList = async (req, res) => {
     const registryTask = await RegistryTaskModel.bulkCreate(tasks)
 
    // console.log(registry)
-
+ 
 
     // all tasks, in column close = true, in registryTasks
     // those tasks, bulkCreate (tasks) in registryTasks
