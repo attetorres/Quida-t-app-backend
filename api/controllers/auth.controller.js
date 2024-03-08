@@ -7,9 +7,11 @@ const signUp = async(req,res) => {
     try {
         const salt = bcrypt.genSaltSync(parseInt(process.env.BCRYPT_SALT))
         req.body.pass = bcrypt.hashSync(req.body.pass, salt)
+
         const user = await UserModel.create(req.body)
 
         const token = jwt.sign({email: user.email, role: user.role}, process.env.JWT_SECRET)
+
         res.locals.user = user
         res.status(200).json({token: token})
 
@@ -26,10 +28,13 @@ const login = async(req,res) => {
                 email: req.body.email
             }
         })
+
         if(!user) return res.status(400).json("Error email/password")
+
         if(!bcrypt.compareSync(req.body.pass, user.pass)) return res.status(400).json("Error email/password")
 
         const token = jwt.sign({email: user.email, role: user.role}, process.env.JWT_SECRET)
+
         res.locals.user = user
         res.status(200).json({token})
 
@@ -38,6 +43,7 @@ const login = async(req,res) => {
         res.status(500).send('Error login')
     }
 }
+
 
 module.exports = {
     signUp,

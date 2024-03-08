@@ -1,8 +1,5 @@
 const { DataTypes } = require('sequelize')
 const sequelize = require('../../db')
-const UserModel = require('./user.model')
-const TaskModel = require('./task.model')
-
 
 const RegistryTaskModel = sequelize.define("registryTask",{
     id:{
@@ -11,23 +8,6 @@ const RegistryTaskModel = sequelize.define("registryTask",{
         autoIncrement: true,
         allowNull: false
     },
-    /* taskId: {
-        type: DataTypes.INTEGER,
-        references: { 
-            model: UserModel,
-            key: "id"
-        },
-        unique: false
-    },
-    assignedUserId: {
-        type: DataTypes.INTEGER,
-        references: { 
-            model: TaskModel,
-            key: "id"
-        },
-        unique: false
-        
-    }, */
     checkbox: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -43,6 +23,7 @@ const RegistryTaskModel = sequelize.define("registryTask",{
         type: DataTypes.BOOLEAN,
         defaultValue: false
     }
-
 })
+
+
 module.exports = RegistryTaskModel
