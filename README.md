@@ -16,9 +16,9 @@ Task lists management app for therapists, patients, and general users, enabling 
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
 
 ## INSTALLATION
-Run `$ npm i` on console
+- Run `$ npm i` on console
 
-Config a `.env` file as explained on `.env.example`
+- Config a `.env` file as explained on `.env.example`
 
 ## DATABASE
 
@@ -31,15 +31,18 @@ Config a `.env` file as explained on `.env.example`
 ## API ROUTES (/api)
 
 
-### AUTH ENDPOINTS (/auth)
+<details>
+<summary> AUTH ENDPOINTS (/auth)</summary>
 
 |Method |Endpoint |Token|Role |Description      |Params  |Returns  |
 |-------|---------|-----|-----|-----------------|--------|---------|
 | POST  | /signup | NO  | -   | Creates an user | -      | {token} |
 | POST  | /login  | NO  | -   | Logs in         | -      | {token} |
+</details>
 
 
-### USER ENDPOINTS (/users)
+<details>
+<summary> USER ENDPOINTS (/users)</summary>
 
 |Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                                 |
 |--------|----------------|-----|--------------|--------------------------------|--------|----------------------------------------|
@@ -52,9 +55,11 @@ Config a `.env` file as explained on `.env.example`
 | PUT    | /admin/:userId | YES | Admin        | Validate psychologist role     | userId | "Updated successfully", {psychologist} |
 | PUT    | /close/:listId | YES | -            | Close task list registry       | listId | [{tasks}]                              |
 | DELETE | /              | YES | -            | Delete user                    | -      | "User deleted"                         |
+</details>
 
-  
-### LIST ENDPOINTS (/lists)
+
+<details>
+<summary> LIST ENDPOINTS (/lists)</summary>
 
 |Method  |Endpoint          |Token|Role            |Description    |Params          |Returns                                                 |
 |--------|------------------|-----|----------------|---------------|----------------|--------------------------------------------------------|
@@ -65,9 +70,11 @@ Config a `.env` file as explained on `.env.example`
 | GET    | /:listId         | YES |  -             | Get a List    | listId         | {list}                                                 |
 | PUT    | /:listId         | YES |  -             | Update a List | listId         | "List updated successfully"                            |
 | DELETE | /:listId         | YES |  -             | Delete a List | listId         | "List deleted"                                         |
+</details>
 
 
-### TASK ENDPOINTS (/tasks)
+<details>
+<summary> TASK ENDPOINTS (/tasks)</summary>
 
 |Method  |Endpoint          |Token|Role |Description                |Params         |Returns                      |
 |--------|------------------|-----|-----|---------------------------|---------------|-----------------------------|
@@ -77,4 +84,4 @@ Config a `.env` file as explained on `.env.example`
 | GET    | /:listId         | YES | -   | Get all tasks from a list | listId        | [{tasks}]                   |
 | PUT    | /:listId/:taskId | YES | -   | Update a task             | listId,taskId | "Task updated successfully" |
 | DELETE | /:listId/:taskId | YES | -   | Delete a task             | listId,taskId | "Task deleted successfully" |
-
+</details>
