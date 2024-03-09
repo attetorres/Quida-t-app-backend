@@ -33,53 +33,41 @@ Config a `.env` file as explained on `.env.example`
 
 ### AUTH ENDPOINTS (/auth)
 
-|Method   |Endpoint   |Token   |Role   |Description   |Params   |Returns   |
-|---|---|---|---|---|---|---|
-| POST  |/signup   |NO   | -  |Creates an account   |-   | {token}
-|  POST |/login   |NO   |-   |Logs in    |-   | {token}   |
+|Method |Endpoint |Token|Role |Description      |Params  |Returns  |
+|-------|---------|-----|-----|-----------------|--------|---------|
+| POST  | /signup | NO  | -   | Creates an user | -      | {token} |
+| POST  | /login  | NO  | -   | Logs in         | -      | {token} |
+
 
 ### USER ENDPOINTS (/users)
 
-|Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                               |
-|--------|----------------|-----|--------------|--------------------------------|--------|--------------------------------------|
-| GET    |  /             | YES | Psychologist | Get all Users                  | -      | [{users}]                            |
-| GET    | /profile       | YES | -            | Get self profile               | -      |  {user}                              |
-| GET    | /psychologist  | YES | -            | Get assigned Psychologist      | -      | {psychologist}                       |
-| GET    | /:userId       | YES | -            | Get one user                   | userId | {user}                               |
-| PUT    | /              | YES | -            | Update user                    | -      | {user}                               |
-| PUT    | /:userId       | YES | Psychologist | Assign psychologist to an user | userId |  {user}                              |
-| PUT    | /admin/:userId | YES | Admin        | Validate psychologist role     | userId | Updated successfully, {psychologist} |
-| PUT    | /close/:listId | YES | -            | Close task list registry       | listId |  [{tasks}]                           |
-| DELETE | /              | YES | -            | Delete user                    | -      |  User deleted                        |
+|Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                                 |
+|--------|----------------|-----|--------------|--------------------------------|--------|----------------------------------------|
+| GET    |  /             | YES | Psychologist | Get all Users                  | -      | [{users}]                              |
+| GET    | /profile       | YES | -            | Get self profile               | -      | {user}                                 |
+| GET    | /psychologist  | YES | -            | Get assigned Psychologist      | -      | {psychologist}                         |
+| GET    | /:userId       | YES | -            | Get one user                   | userId | {user}                                 |
+| PUT    | /              | YES | -            | Update user                    | -      | {user}                                 |
+| PUT    | /:userId       | YES | Psychologist | Assign psychologist to an user | userId | {user}                                 |
+| PUT    | /admin/:userId | YES | Admin        | Validate psychologist role     | userId | "Updated successfully", {psychologist} |
+| PUT    | /close/:listId | YES | -            | Close task list registry       | listId | [{tasks}]                              |
+| DELETE | /              | YES | -            | Delete user                    | -      | "User deleted"                         |
+
+  
+### LIST ENDPOINTS (/lists)
+
+|Method  |Endpoint          |Token|Role |Description    |Params          |Returns                                                 |
+|--------|------------------|-----|-----|---------------|----------------|--------------------------------------------------------|
+| POST   |  /               | YES |  -  | Create a List | -              | message, {list}                                        |
+| POST   | /:listId/:userId | YES |  -  | Assign a List | listId, userId | {assignedUser}                                         |
+| GET    | /                | YES |  -  | Get all Lists | -              | [{lists}]                                              |
+| GET    | /myLists         | YES |  -  | Get my Lists  | listId         | {"createdLists": [{lists}], "assignedLists": [{lists}] |
+| GET    | /:listId         | YES |  -  | Get a List    | listId         | {list}                                                 |
+| PUT    | /:listId         | YES |  -  | Update a List | listId         | "List updated successfully"                            |
+| DELETE | /:listId         | YES |  -  | Delete a List | listId         | "List deleted"                                         |
+
 
 CHECKED ENDPOINTS -----
-  
-### LIST ENDPOINTS
-
-
-|Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                               |
-|---|---|---|---|---|---|---|
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-
-- `/api/lists`: a
-- `/api/lists`: b
-- `/api/lists`: c
-- `/api/lists`: d
-
-- `/api/lists/created`: Endpoint to retrieve lists created by the authenticated user.
-- `/api/lists/assigned`: Endpoint to retrieve lists assigned to the authenticated user.
-- `/api/lists`: Endpoints for managing lists (CRUD operations).
-- `/api/lists/:list_id`: Endpoint to retrieve, update, or delete a specific list.
 
   
 ### TASK ENDPOINTS
