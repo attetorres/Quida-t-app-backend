@@ -23,7 +23,7 @@ Config a `.env` file as explained on `.env.example`
 ## DATABASE
 
 ### DATA STRUCTURE & MODELS
-![image](https://github.com/attetorres/cuida-t-app/assets/110516703/9ad0064b-a662-4325-bd5c-97ec19feaaf0)
+![image](/db_diagram.png)
 
 ### DB_TABLES
 
