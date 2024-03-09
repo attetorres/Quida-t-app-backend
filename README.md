@@ -56,15 +56,15 @@ Config a `.env` file as explained on `.env.example`
   
 ### LIST ENDPOINTS (/lists)
 
-|Method  |Endpoint          |Token|Role |Description    |Params          |Returns                                                 |
-|--------|------------------|-----|-----|---------------|----------------|--------------------------------------------------------|
-| POST   |  /               | YES |  -  | Create a List | -              | message, {list}                                        |
-| POST   | /:listId/:userId | YES |  -  | Assign a List | listId, userId | {assignedUser}                                         |
-| GET    | /                | YES |  -  | Get all Lists | -              | [{lists}]                                              |
-| GET    | /myLists         | YES |  -  | Get my Lists  | listId         | {"createdLists": [{lists}], "assignedLists": [{lists}] |
-| GET    | /:listId         | YES |  -  | Get a List    | listId         | {list}                                                 |
-| PUT    | /:listId         | YES |  -  | Update a List | listId         | "List updated successfully"                            |
-| DELETE | /:listId         | YES |  -  | Delete a List | listId         | "List deleted"                                         |
+|Method  |Endpoint          |Token|Role            |Description    |Params          |Returns                                                 |
+|--------|------------------|-----|----------------|---------------|----------------|--------------------------------------------------------|
+| POST   |  /               | YES |  -             | Create a List | -              | message, {list}                                        |
+| POST   | /:listId/:userId | YES |  Psychologist  | Assign a List | listId, userId | {assignedUser}                                         |
+| GET    | /                | YES |  -             | Get all Lists | -              | [{lists}]                                              |
+| GET    | /myLists         | YES |  -             | Get my Lists  | listId         | {"createdLists": [{lists}], "assignedLists": [{lists}] |
+| GET    | /:listId         | YES |  -             | Get a List    | listId         | {list}                                                 |
+| PUT    | /:listId         | YES |  -             | Update a List | listId         | "List updated successfully"                            |
+| DELETE | /:listId         | YES |  -             | Delete a List | listId         | "List deleted"                                         |
 
 
 CHECKED ENDPOINTS -----
