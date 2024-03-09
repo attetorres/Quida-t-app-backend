@@ -43,7 +43,7 @@ Config a `.env` file as explained on `.env.example`
 
 |Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                                 |
 |--------|----------------|-----|--------------|--------------------------------|--------|----------------------------------------|
-| GET    |  /             | YES | Psychologist | Get all Users                  | -      | [{users}]                              |
+| GET    | /              | YES | Psychologist | Get all Users                  | -      | [{users}]                              |
 | GET    | /profile       | YES | -            | Get self profile               | -      | {user}                                 |
 | GET    | /psychologist  | YES | -            | Get assigned Psychologist      | -      | {psychologist}                         |
 | GET    | /:userId       | YES | -            | Get one user                   | userId | {user}                                 |
@@ -58,7 +58,7 @@ Config a `.env` file as explained on `.env.example`
 
 |Method  |Endpoint          |Token|Role            |Description    |Params          |Returns                                                 |
 |--------|------------------|-----|----------------|---------------|----------------|--------------------------------------------------------|
-| POST   |  /               | YES |  -             | Create a List | -              | message, {list}                                        |
+| POST   | /                | YES |  -             | Create a List | -              | message, {list}                                        |
 | POST   | /:listId/:userId | YES |  Psychologist  | Assign a List | listId, userId | {assignedUser}                                         |
 | GET    | /                | YES |  -             | Get all Lists | -              | [{lists}]                                              |
 | GET    | /myLists         | YES |  -             | Get my Lists  | listId         | {"createdLists": [{lists}], "assignedLists": [{lists}] |
@@ -67,32 +67,14 @@ Config a `.env` file as explained on `.env.example`
 | DELETE | /:listId         | YES |  -             | Delete a List | listId         | "List deleted"                                         |
 
 
-CHECKED ENDPOINTS -----
+### TASK ENDPOINTS (/tasks)
 
-  
-### TASK ENDPOINTS
+|Method  |Endpoint          |Token|Role |Description                |Params         |Returns                      |
+|--------|------------------|-----|-----|---------------------------|---------------|-----------------------------|
+| POST   | /:listId         | YES | -   | Create a task             | listId        | [{users}]                   |
+| GET    | /                | YES | -   | Get all my tasks          | -             | [{list: {tasks}}]           |
+| GET    | /:listId/:taskId | YES | -   | Get a task                | listId,taskId | {task}                      |
+| GET    | /:listId         | YES | -   | Get all tasks from a list | listId        | [{tasks}]                   |
+| PUT    | /:listId/:taskId | YES | -   | Update a task             | listId,taskId | "Task updated successfully" |
+| DELETE | /:listId/:taskId | YES | -   | Delete a task             | listId,taskId | "Task deleted successfully" |
 
-
-|Method  |Endpoint        |Token|Role          |Description                     |Params  |Returns                               |
-|---|---|---|---|---|---|---|
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-|   |   |   |   |   |   |   |
-
-- `/api/tasks`:
-- `/api/tasks`:
-- `/api/tasks`:
-- `/api/tasks`:
-- `/api/tasks`:
-
-- `/api/lists/:list_id/tasks`: Endpoints for managing tasks within a specific list (CRUD operations).
-- `/api/lists/:list_id/tasks/:task_id`: Endpoint to retrieve, update, or delete a specific task within a list.
-- `/api/lists/:list_id/tasks/:task_id/complete`: Endpoint to mark a task as completed within a specific list.
