@@ -26,11 +26,10 @@ Task lists management app for therapists, patients, and general users, enabling 
 
 ### DATA STRUCTURE & MODELS
 
-<details>
-<summary> DB DIAGRAM </summary>
+### DB DIAGRAM 
 
 ![image](/db_diagram.png)
-</details>
+
 
 
 ### DB TABLES
