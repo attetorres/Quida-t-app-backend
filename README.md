@@ -22,13 +22,90 @@ Task lists management app for therapists, patients, and general users, enabling 
 
 ## DATABASE
 
+
+
 ### DATA STRUCTURE & MODELS
+
+<details>
+<summary> DB DIAGRAM </summary>
+
 ![image](/db_diagram.png)
+</details>
 
-### DB_TABLES
+
+### DB TABLES
+
+<details>
+<summary> USER TABLE </summary>
+
+| Key          | Type      | Reference | Required | Validation                                  |
+|--------------|-----------|-----------|----------|---------------------------------------------|
+| id           | integer   | -         | YES      | primaryKey, autoIncrement, allowNull: false |
+| username     | string    | -         | YES      | -                                           |
+| name         | string    | -         | NO       | -                                           |
+| lastname     | string    | -         | NO       | -                                           |
+| pass         | string    | -         | YES      | -                                           |
+| email        | string    | -         | YES      | RegExp, Unique, isEmail                     |
+| colegiate    | string    | -         | NO       | -                                           |
+| validation   | boolean   | -         | NO       | -                                           |    
+| role         | string    | -         | NO       | isIn: ['admin', 'psychologist', 'patient']  |
+| phone        | integer   | -         | NO       | min: 9, max: 9                              |
+| psychologist | integer   | User      | NO       | -                                           |
+</details>
 
 
-## API ROUTES (/api)
+<details>
+<summary> LIST TABLE </summary>
+
+| Key         | Type    | Reference | Required | Validation                                  |
+|-------------|---------|-----------|----------|---------------------------------------------|
+| id          | integer | -         | YES      | primaryKey, autoIncrement, allowNull: false |
+| title       | string  | -         | NO       | -                                           |
+| description | string  | -         | NO       | max: 250                                    |
+| userId      | integer | User      | NO       | -                                           |
+| cycle       | string  | -         | NO       | isIn: ['Diary', 'Weekly', 'Monthly']        |
+</details>
+
+
+<details>
+<summary> TASK TABLE </summary>
+
+| Key         | Type    | Reference | Required | Validation                                  |
+|-------------|---------|-----------|----------|---------------------------------------------|
+| id          | integer | -         | YES      | primaryKey, autoIncrement, allowNull: false |
+| title       | string  | -         | YES      | -                                           |
+| description | string  | -         | NO       | -                                           |
+| listId      | integer | List      | NO       | -                                           |
+</details>
+
+
+<details>
+<summary> ASSIGNED USERS TABLE </summary>
+
+| Key         | Type    | Reference | Required | Validation                                  |
+|-------------|---------|-----------|----------|---------------------------------------------|
+| id          | integer | -         | YES      | primaryKey, autoIncrement, allowNull: false |
+| userId      | integer | User      | NO       | -                                           |
+| listId      | integer | List      | NO       | -                                           |
+</details>
+
+
+<details>
+<summary> REGISTRY TASK TABLE </summary>
+
+| Key            | Type    | Reference     | Required | Validation                                  |
+|----------------|---------|---------------|----------|---------------------------------------------|
+| id             | integer |               | YES      | primaryKey, autoIncrement, allowNull: false |
+| taskId         | integer | Task          | YES      |                                             |
+| assignedUserId | integer | AssignedUsers | YES      |                                             |
+| checkbox       | boolean |               | NO       | defaultValue: false                         |
+| moodRanking    | integer |               | NO       | defaultValue: false, max: 10                |
+| closed         | boolean |               | NO       | defaultValue: false                         |
+</details>
+
+
+
+### API ROUTES (/api)
 
 
 <details>
