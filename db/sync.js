@@ -7,7 +7,7 @@ const sequelize = require('./index')
 
 const dbSync = async () => {
     try {
-        // await sequelize.sync({alter:true})
+         await sequelize.sync({alter:true})
         // await UserModel.sync({alter: true})
         // await sequelize.sync({alter: true})
         // await UserModel.sync({alter: true})
