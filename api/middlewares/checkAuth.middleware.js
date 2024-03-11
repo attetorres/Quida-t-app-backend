@@ -35,7 +35,7 @@ const checkAdmin = (req,res,next) => {
 }
 
 const checkPsycho = (req,res,next) => {
-    if (res.locals.user.role !== 'psychologist' && res.locals.user.role !== 'admin') {
+    if (res.locals.user.role !== 'psychologist' || res.locals.user.role !== 'admin') {
         return res.status(401).send('User not authorized')   
     } else {
         next()
