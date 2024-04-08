@@ -139,7 +139,7 @@ const getSelfUser = async (req, res) => {
 
         if (!user) return res.stauts(404).send('User not found')
 
-        return res.status(500).json(user)
+        return res.status(200).json(user)
 
     } catch (error) {
         console.log(error)
