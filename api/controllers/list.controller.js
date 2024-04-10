@@ -4,7 +4,6 @@ const TaskModel = require('../models/task.model')
 const UserModel = require('../models/user.model')
 const RegistryTaskModel = require ('../models/registryTask.model')
 
-
 const createList = async (req, res) => {
     try {
         req.body.userId = res.locals.user.id 
@@ -24,7 +23,6 @@ const createList = async (req, res) => {
         res.status(500).send(error.message)
     }
 }
-
 
 const getAllLists = async (req, res) => {
     try {
@@ -73,11 +71,13 @@ const getOneList = async (req, res) => {
         const list = await ListModel.findByPk(req.params.listId, {
             attributes: {exclude: ['userId']}
         })
+
         if (list) {
             return res.status(200).json(list)
         } else {
             return res.status(404).send('List not found')
         }
+
     } catch (error) {
         console.log(error)
         res.status(500).send(error.message)
@@ -87,11 +87,10 @@ const getOneList = async (req, res) => {
 const updateList = async (req, res) => {
     try {
         const user = await UserModel.findByPk(res.locals.user.id)
-
         const list = await ListModel.findByPk(req.params.listId)
   
         if (user.id !== list.userId) {
-            return res.status(500).send('Unauthorized')
+            return res.status(401).send('Unauthorized')
         }
 
         const result = await ListModel.update(req.body, {
@@ -106,18 +105,15 @@ const updateList = async (req, res) => {
         console.log(error)
         res.status(500).send(error.message)
     }
-
 }
 
 const deleteList = async (req, res) => {
     try {
-
         const user = await UserModel.findByPk(res.locals.user.id)
-
         const list = await ListModel.findByPk(req.params.listId)
 
         if (user.id !== list.userId) {
-            return res.status(500).send('Unauthorized')
+            return res.status(401).send('Unauthorized')
         }
 
         const result = await ListModel.destroy({
@@ -125,6 +121,7 @@ const deleteList = async (req, res) => {
                 id: req.params.listId,
             }
         })
+
         if (result) {
             return res.status(200).json('List deleted')
         } else {
@@ -140,26 +137,22 @@ const deleteList = async (req, res) => {
 
 const assignList = async (req, res) => {
     try {
-        
         const user = await UserModel.findByPk(req.params.userId)
 
-
         if (user.psychologist !== res.locals.user.id) {
-            return res.status(500).send('You are not this patient\'s psychologist')
+            return res.status(401).send('You are not this patient\'s psychologist')
         }
 
         const list = await ListModel.findByPk(req.params.listId)
 
         if (list.userId !== res.locals.user.id) {
-            return res.status(500).send('You are not this list\'s creator')
+            return res.status(401).send('You are not this list\'s creator')
         }
 
         const assignation = await AssignedUsers.create({
             userId: req.params.userId,
             listId: req.params.listId
         })
-
-    
 
         if (!assignation) return res.status(500).send('List could not be assigned')
 
@@ -174,28 +167,15 @@ const assignList = async (req, res) => {
                 assignedUserId: assignation.id,
         }})
 
-       //console.log(tasks)
-
        const registryTasks = await RegistryTaskModel.bulkCreate(tasks)
 
-        res.status(200).json(assignation)
+       res.status(200).json(assignation)
 
     } catch (error) {
         console.log(error)
         res.status(500).send(error.message)
     }
-
-   
-  
-    // const user = req params :userId 
-
-
-    // check user.psychologist = token.id
-
-    
 }
-
-
 
 
 module.exports = {

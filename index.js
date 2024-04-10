@@ -1,6 +1,7 @@
 require('dotenv').config()
 const morgan = require('morgan')
 const express = require('express')
+const cors = require('cors')
 const sequelize = require('./db')
 
 const api = express()
@@ -20,12 +21,11 @@ const dbCheck = async () => {
     }
 }
 
+api.use(cors())
 api.use(morgan('dev'))
 api.use(express.json())
 
-
 api.use('/api', require ('./api/routes'))
-
 
 api.listen(process.env.PORT, async (err) => {
     if (err) throw new Error ('Cannot start api')

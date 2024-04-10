@@ -22,14 +22,10 @@ const addRelationships = () => {
         ListModel.hasMany(TaskModel)
         TaskModel.belongsTo(ListModel)
         
-       
-        
     } catch (error) {
         console.log(error)
         throw new Error(error)
-        
     }
-
 }
 
 

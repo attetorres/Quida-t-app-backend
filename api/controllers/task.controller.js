@@ -6,9 +6,7 @@ const RegistryTaskModel = require('../models/registryTask.model')
 
 const createTask = async (req, res) => {
     try {
-
         const list = await ListModel.findByPk(req.params.listId)
-
         const user = await UserModel.findByPk(list.userId)
 
         if (user.email === res.locals.user.email) {
@@ -23,33 +21,26 @@ const createTask = async (req, res) => {
                     }
                 })
 
-              await RegistryTaskModel.create({
-                taskId: task.id,
-                assignedUserId: assignment.id,
-                
+                const registry = await RegistryTaskModel.create({
+                    taskId: task.dataValues.id,
+                    assignedUserId: assignment.id,
                 })
-
             }
 
-            
-            RegistryTaskModel
             res.status(200).json({ message: 'Task created', task: task })
 
         } else {
-            res.statu(500).send('You are not the creator of the list')
+            res.status(401).send('You are not the creator of the list')
         }
-
 
     } catch (error) {
         console.log(error)
         res.status(500).send('Error creating the task')
     }
-
 }
 
 const getAllMyTasks = async (req, res) => {
     try {
-
         const user = await UserModel.findByPk(res.locals.user.id, {
             include: {
                 model: ListModel,
@@ -65,12 +56,10 @@ const getAllMyTasks = async (req, res) => {
         console.log(error)
         res.status(500).send('Error getting all tasks')
     }
-
 }
 
 const getOneTask = async (req, res) => {
     try {
-
         list = await ListModel.findOne({
             where: {
                 id: req.params.listId
@@ -89,7 +78,7 @@ const getOneTask = async (req, res) => {
                     id: req.params.taskId
                 }
             })
-            if (!task) return res.status(500).send('No task found')
+            if (!task) return res.status(404).send('Task not found')
 
             res.status(200).json(task)
         } else {
@@ -100,18 +89,12 @@ const getOneTask = async (req, res) => {
         console.log(error)
         res.status(500).send('Error getting the task')
     }
-
 }
-
-
 
 const updateTask = async (req, res) => {
     try {
-
         const task = await TaskModel.findByPk(req.params.taskId)
-
         const list = await ListModel.findByPk(task.listId)
-
         const user = await UserModel.findByPk(list.userId)
 
         if (user.email === res.locals.user.email) {
@@ -121,32 +104,22 @@ const updateTask = async (req, res) => {
                 }
             })
         }
-        if (!task) return res.status(500).send('No task found')
-
-
+        if (!task) return res.status(404).send('Task not found')
 
         res.status(200).send('Task updated successfully')
+
     } catch (error) {
         console.log(error)
         res.status(500).send('Error updating the task')
     }
-
 }
 
 const deleteTask = async (req, res) => {
     try {
-        //to delete a task:
-        // we need taskId
-        // compare the column listId from said taskiD
-        // compare userId of colum creator from said listID
+        
         const task = await TaskModel.findByPk(req.params.taskId)
-
         const list = await ListModel.findByPk(task.listId)
-
         const user = await UserModel.findByPk(list.userId)
-
-        // compre userId/userEmail from taskId with userId/userEmail from token?
-
 
         if (user.email === res.locals.user.email) {
             await TaskModel.destroy({
@@ -155,7 +128,7 @@ const deleteTask = async (req, res) => {
                 }
             })
 
-            if (!task) return res.status(500).send('No task found')
+            if (!task) return res.status(404).send('Task not found')
 
             res.status(200).send('Task deleted successfully')
         }
@@ -164,7 +137,6 @@ const deleteTask = async (req, res) => {
         console.log(error)
         res.status(500).send('Error deleting the task')
     }
-
 }
 
 const getAllTasksOneList= async (req,res)=>{
@@ -174,7 +146,9 @@ const getAllTasksOneList= async (req,res)=>{
                 listId: req.params.listId
             }
         })
-        if(!task) return res.status(500).send("Task not found")
+
+        if(!task) return res.status(404).send("Task not found")
+
         res.status(200).json(task)
 
     } catch (error) {
@@ -182,6 +156,8 @@ const getAllTasksOneList= async (req,res)=>{
         res.status(500).send('Error getting task')
     }
 }
+
+
 module.exports = {
     getAllMyTasks,
     getOneTask,

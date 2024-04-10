@@ -8,13 +8,11 @@ const TaskModel = sequelize.define('task', {
     },
     description: {
         type: DataTypes.STRING,
-        
     },
     listId: {
         type: DataTypes.INTEGER,
-    
     }
-
 })
+
 
 module.exports = TaskModel
