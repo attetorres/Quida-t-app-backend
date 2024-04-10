@@ -175,6 +175,35 @@ const assignList = async (req, res) => {
         console.log(error)
         res.status(500).send(error.message)
     }
+
+   
+}
+
+const listAssignedPsychologist = async(req, res) =>{
+    try {
+
+        const list = await ListModel.findAll({
+            where:{
+                userId: res.locals.user.id
+            }
+        })
+
+        const result = list.map(async(l)=>{
+            return  assign = await AssignedUsers.findAll({
+                where:{
+                    listId : l.id
+                    
+                }
+            })
+
+        })
+        console.log(list)
+        return res.status(200).json(result)
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
 }
 
 
@@ -185,5 +214,6 @@ module.exports = {
     updateList,
     deleteList,
     getMyLists,
-    assignList
+    assignList,
+    listAssignedPsychologist
 }
