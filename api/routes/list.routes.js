@@ -7,13 +7,15 @@ const {
     updateList, 
     deleteList, 
     getMyLists, 
-    assignList 
+    assignList,
+    listAssignedPsychologist 
 } = require('../controllers/list.controller')
 
 router.post('/', createList)
 router.post('/:listId/:userId', assignList)
 
 router.get('/', getAllLists)
+router.get('/listAssigned', listAssignedPsychologist)
 router.get('/myLists', getMyLists)
 router.get('/:listId', getOneList)
 
