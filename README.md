@@ -143,6 +143,7 @@ Task lists management app for therapists, patients, and general users, enabling 
 | POST   | /:listId/:userId | YES |  Psychologist  | Assign a List | listId, userId | {assignedUser}                                         |
 | GET    | /                | YES |  -             | Get all Lists | -              | [{lists}]                                              |
 | GET    | /myLists         | YES |  -             | Get my Lists  | listId         | {"createdLists": [{lists}], "assignedLists": [{lists}] |
+| GET    | /listAssigned    | YES |  -             | Get assigned Lists  | -         | {"assignedLists": [{lists}] |
 | GET    | /:listId         | YES |  -             | Get a List    | listId         | {list}                                                 |
 | PUT    | /:listId         | YES |  -             | Update a List | listId         | "List updated successfully"                            |
 | DELETE | /:listId         | YES |  -             | Delete a List | listId         | "List deleted"                                         |
