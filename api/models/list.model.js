@@ -17,7 +17,7 @@ const ListModel = sequelize.define('list', {
     cycle: {
         type: DataTypes.STRING,
         validate: {
-            isIn: [[undefined, 'Dialy', 'Weekly', 'Monthly']]
+            isIn: [[undefined, 'Daily', 'Weekly', 'Monthly']]
         }
     }
 })
