@@ -211,27 +211,6 @@ const closeList = async (req, res) => {
 
 }
 
-/* const getAllOpenTasks =  async (req, res) => {
-    try {
-        const assignment = await AssignedUsers.findAll({
-            include: {all: true, nested: true},
-            where: {
-                userId: res.locals.user.id
-            },
-            
-           
-        },)
-
-
-        res.json({ assignment })
-
-    
-    } catch (error) {
-        console.log(error)
-        res.status(500).send(error.message)
-    }
-
-} */
 
 const getAllOpenTasks =  async (req, res) => {
     try {
@@ -266,6 +245,22 @@ const getAllOpenTasks =  async (req, res) => {
 
 }
 
+const putTaskUser = async(req, res) =>{
+   
+    try {
+        const result = await RegistryTaskModel.findByPk(req.params.taskRegistryId)
+        const update = await RegistryTaskModel.update({checkbox: req.params.registryTask},{
+            where: {
+                id: result.id
+            }
+        })
+        res.json(update)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+}
+
 
 module.exports = { 
     getAllUsers, 
@@ -277,5 +272,6 @@ module.exports = {
     getSelfUser,
     getUserPsycho,
     closeList,
-    getAllOpenTasks
+    getAllOpenTasks,
+    putTaskUser
  }

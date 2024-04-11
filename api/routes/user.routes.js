@@ -10,7 +10,8 @@ const {
     getSelfUser, 
     getUserPsycho, 
     closeList, 
-    getAllOpenTasks
+    getAllOpenTasks,
+    putTaskUser
 } = require('../controllers/user.controller')
 
 const { 
@@ -26,6 +27,7 @@ router.get('/tasks', getAllOpenTasks )
 router.get('/:userId', checkPsycho,  getOneUser) 
 
 
+router.put('/registry/:taskRegistryId/:registryTask', putTaskUser)
 router.put('/', updateUser)
 router.put('/:userId', checkPsycho, updateUserPsycho)
 router.put('/admin/:userId', checkAdmin, psychoStatusRole)
