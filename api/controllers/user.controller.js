@@ -1,5 +1,7 @@
 const AssignedUsers = require('../models/assignedUser.model')
+const ListModel = require('../models/list.model')
 const RegistryTaskModel = require('../models/registryTask.model')
+const TaskModel = require('../models/task.model')
 const UserModel = require('../models/user.model')
 
 const getAllUsers = async (req, res) => {
@@ -209,25 +211,52 @@ const closeList = async (req, res) => {
 
 }
 
+/* const getAllOpenTasks =  async (req, res) => {
+    try {
+        const assignment = await AssignedUsers.findAll({
+            include: {all: true, nested: true},
+            where: {
+                userId: res.locals.user.id
+            },
+            
+           
+        },)
+
+
+        res.json({ assignment })
+
+    
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+
+} */
+
 const getAllOpenTasks =  async (req, res) => {
     try {
-        const assignment = await AssignedUsers.findOne({
-            where: {
-                listId: req.params.listId,
-                userId: res.locals.user.id
+        const assignment = await AssignedUsers.findAll({
+           include: [
+            {
+                model: RegistryTaskModel,
+                include: [
+                    {
+                        model: TaskModel,
+                    }
+                ],
+                where: {
+                    closed: false
+                }
             }
-        })
+           ],
+           where: {
+            userId: res.locals.user.id
+        },
+           
+        },)
 
-        let registry = await RegistryTaskModel.findAll({
-            where: {
-                assignedUserId: assignment.id,
-                closed: false
-            }
-        })
-        
-        
 
-        res.json(registry)
+        res.json({ assignment })
 
     
     } catch (error) {
