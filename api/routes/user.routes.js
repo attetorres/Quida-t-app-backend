@@ -9,7 +9,8 @@ const {
     psychoStatusRole, 
     getSelfUser, 
     getUserPsycho, 
-    closeList 
+    closeList, 
+    getAllOpenTasks
 } = require('../controllers/user.controller')
 
 const { 
@@ -18,9 +19,12 @@ const {
 } = require('../middlewares/checkAuth.middleware')
 
 router.get('/', checkPsycho, getAllUsers) 
+
 router.get('/profile', getSelfUser)
 router.get('/profile/psychologist', getUserPsycho)
+router.get('/tasks', getAllOpenTasks )
 router.get('/:userId', checkPsycho,  getOneUser) 
+
 
 router.put('/', updateUser)
 router.put('/:userId', checkPsycho, updateUserPsycho)

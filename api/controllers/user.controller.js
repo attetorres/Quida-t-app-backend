@@ -209,11 +209,11 @@ const closeList = async (req, res) => {
 
 }
 
-const getAllOpenTasks =  async (req, res) => {
+const getAllOpenTasks = async (req, res) => {
     try {
         const assignment = await AssignedUsers.findOne({
             where: {
-                listId: req.params.listId,
+                
                 userId: res.locals.user.id
             }
         })
@@ -227,7 +227,7 @@ const getAllOpenTasks =  async (req, res) => {
         
         
 
-        res.json(registry)
+        res.status(200).json(registry)
 
     
     } catch (error) {
