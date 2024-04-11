@@ -209,6 +209,34 @@ const closeList = async (req, res) => {
 
 }
 
+const getAllOpenTasks =  async (req, res) => {
+    try {
+        const assignment = await AssignedUsers.findOne({
+            where: {
+                listId: req.params.listId,
+                userId: res.locals.user.id
+            }
+        })
+
+        let registry = await RegistryTaskModel.findAll({
+            where: {
+                assignedUserId: assignment.id,
+                closed: false
+            }
+        })
+        
+        
+
+        res.json(registry)
+
+    
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+
+}
+
 
 module.exports = { 
     getAllUsers, 
@@ -219,5 +247,6 @@ module.exports = {
     psychoStatusRole, 
     getSelfUser,
     getUserPsycho,
-    closeList
+    closeList,
+    getAllOpenTasks
  }
