@@ -181,7 +181,6 @@ const assignList = async (req, res) => {
 
 const listAssignedPsychologist = async(req, res) =>{
     try {
-
         const list = await ListModel.findAll({
             where:{
                 userId: res.locals.user.id
@@ -189,16 +188,16 @@ const listAssignedPsychologist = async(req, res) =>{
         })
 
         const result = list.map(async(l)=>{
-            return  assign = await AssignedUsers.findAll({
+           return await AssignedUsers.findAll({
                 where:{
-                    listId : l.id
+                    listId : l.dataValues.id
                     
                 }
             })
 
         })
-        console.log(list)
-        return res.status(200).json(result)
+        const res1 = await Promise.all(result)
+        return res.status(200).json(res1)
         
     } catch (error) {
         console.log(error)
