@@ -235,7 +235,7 @@ const closeList = async (req, res) => {
 
 const getAllOpenTasks =  async (req, res) => {
     try {
-        const assignment = await AssignedUsers.findAll({
+        const openTasks = await AssignedUsers.findAll({
            include: [
             {
                 model: RegistryTaskModel,
@@ -256,7 +256,7 @@ const getAllOpenTasks =  async (req, res) => {
         },)
 
 
-        res.json({ assignment })
+        res.json({ openTasks })
 
     
     } catch (error) {
